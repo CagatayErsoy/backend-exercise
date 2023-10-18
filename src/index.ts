@@ -1,6 +1,7 @@
 import express from 'express';
 import { Sequelize, Model, DataTypes } from 'sequelize';
 import dotenv from 'dotenv';
+import serverless from 'serverless-http';
 
 dotenv.config();
 
@@ -63,3 +64,4 @@ app.post('/todos', async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
+module.exports = serverless(app);

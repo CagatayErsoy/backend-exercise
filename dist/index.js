@@ -16,6 +16,7 @@ exports.Todo = void 0;
 const express_1 = __importDefault(require("express"));
 const sequelize_1 = require("sequelize");
 const dotenv_1 = __importDefault(require("dotenv"));
+const serverless_http_1 = __importDefault(require("serverless-http"));
 dotenv_1.default.config();
 class Todo extends sequelize_1.Model {
 }
@@ -73,3 +74,4 @@ app.post('/todos', (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
+module.exports = (0, serverless_http_1.default)(app);
