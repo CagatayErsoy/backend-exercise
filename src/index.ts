@@ -40,6 +40,8 @@ app.use(express.json());
 
 app.get('/alltodos', async (req, res) => {
   try {
+    res.setHeader('Content-Type', 'text/html');
+    res.setHeader('Cache-Control', 's-max-age=1, stale-while-revalidate');
     const todos = await Todo.findAll();
     res.json(todos);
   } catch (err) {

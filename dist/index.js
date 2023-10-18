@@ -50,6 +50,8 @@ Todo.init({
 app.use(express_1.default.json());
 app.get('/alltodos', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        res.setHeader('Content-Type', 'text/html');
+        res.setHeader('Cache-Control', 's-max-age=1, stale-while-revalidate');
         const todos = yield Todo.findAll();
         res.json(todos);
     }
