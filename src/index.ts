@@ -1,14 +1,13 @@
 import express from 'express';
 import { Sequelize, Model, DataTypes } from 'sequelize';
 import dotenv from 'dotenv';
-import serverless from 'serverless-http';
 
 dotenv.config();
 
 export class Todo extends Model {}
 
 const app = express();
-const PORT = 8000;
+const PORT = process.env.PORT || 8000;
 
 const sequelize = new Sequelize(`postgres://afnosuau:${process.env.DATABASE_URL}@stampy.db.elephantsql.com/afnosuau`, {
   dialect: 'postgres',
@@ -41,8 +40,6 @@ app.use(express.json());
 
 app.get('/alltodos', async (req, res) => {
   try {
-    res.setHeader('Content-Type', 'text/html');
-    res.setHeader('Cache-Control', 's-max-age=1, stale-while-revalidate');
     const todos = await Todo.findAll();
     res.json(todos);
   } catch (err) {
@@ -64,4 +61,3 @@ app.post('/todos', async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
-module.exports = serverless(app);
